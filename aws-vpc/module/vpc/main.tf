@@ -9,14 +9,14 @@ resource "aws_vpc" "vpc-main" {
 }
 
 resource "aws_subnet" "public-subnet" {
-  vpc_id     = aws_pvc.vpc-main.id
+  vpc_id     = "${aws_vpc.vpc-main.id}"
   cidr_block = var.subnet_cidr_pub
   tags = {
     Name = var.subnet_cidr_pub_name
   }
 }
 resource "aws_subnet" "private-subnet" {
-  vpc_id     = aws_pvc.vpc-main.id
+  vpc_id     = "${aws_vpc.vpc-main.id}"
   cidr_block = var.subnet_cidr_priv
   tags = {
     Name = var.subnet_cidr_priv_name
