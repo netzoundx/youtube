@@ -1,3 +1,4 @@
+#Create main vpc
 resource "aws_vpc" "vpc-main" {
   cidr_block           = var.vpc_cidr
   instance_tenancy     = "default"
@@ -7,18 +8,21 @@ resource "aws_vpc" "vpc-main" {
     Name = var.vpc_name
   }
 }
-
+#Create public 
 resource "aws_subnet" "public-subnet" {
-  vpc_id     = "${aws_vpc.vpc-main.id}"
+  vpc_id     = aws_vpc.vpc-main.id
   cidr_block = var.subnet_cidr_pub
   tags = {
-    Name = var.subnet_cidr_pub_name
+    Name = "${var.vpc_name}-pub"
   }
 }
+#Create private subnet
 resource "aws_subnet" "private-subnet" {
-  vpc_id     = "${aws_vpc.vpc-main.id}"
+  vpc_id     = aws_vpc.vpc-main.id
   cidr_block = var.subnet_cidr_priv
   tags = {
-    Name = var.subnet_cidr_priv_name
+    Name = "${var.vpc_name}-priv"
   }
 }
+
+
