@@ -49,7 +49,7 @@ resource "aws_route_table_association" "public-rt-assoc" {
 resource "aws_eip" "ip-for-nat" {
   vpc      = true
 }
-resource "aws_nat_gateway" "example" {
+resource "aws_nat_gateway" "nat-gw" {
   allocation_id = "${aws_eip.ip-for-nat.id}"
   subnet_id     = "${aws_subnet.public-subnet.id}"
 
@@ -70,7 +70,10 @@ resource "aws_subnet" "private-subnet" {
 # Create private subnet's route table and associate to private subnet
 resource "aws_route_table" "private-rt" {
   vpc_id = "${aws_vpc.vpc-main.id}"
-  route = []
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = "${aws_nat_gateway.nat-gw.id}"
+  }
   tags = {
     Name = "${var.vpc_name}-private-rt"
   }
