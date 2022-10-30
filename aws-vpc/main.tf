@@ -1,3 +1,6 @@
+# Terraform script to create AWS-VPC with subnets and route table (single AZ)
+# Written by Netzoundxchannel
+
 provider "aws" {
   region  = "ap-south-1"
   profile = "love"
