@@ -1,14 +1,14 @@
 provider "aws" {
-  region  = "ap-southeast-2"
-  profile = "lightnet-nonprod"
+  region  = "ap-south-1"
+  profile = "love"
 }
 
 module "vpc" {
   source                = "./module/vpc"
-  vpc_name              = "sydney-vpc"
-  availability_zone     = "ap-southeast-2a"
-  vpc_cidr              = "192.168.0.0/16"
-  subnet_cidr_pub       = "192.168.0.0/24"
-  subnet_cidr_priv      = "192.168.1.0/24"
+  vpc_name              = "mumbai-vpc"
+  availability_zone     = "ap-south-1a"
+  vpc_cidr              = "20.0.0.0/16"
+  subnet_cidr_pub       = "20.0.0.0/24"
+  subnet_cidr_priv      = "20.0.1.0/24"
 }
 

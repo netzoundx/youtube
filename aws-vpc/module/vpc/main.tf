@@ -45,6 +45,15 @@ resource "aws_route_table_association" "public-rt-assoc" {
   route_table_id = "${aws_route_table.public-rt.id}"
 }
 
+#Create NAT gateway
+resource "aws_nat_gateway" "nat-gateway" {
+  subnet_id     = "${aws_subnet.public-subnet.id}"
+
+  tags = {
+    Name = "${var.vpc_name}-nat-gw"
+  } 
+}
+
 #Create private subnet
 resource "aws_subnet" "private-subnet" {
   vpc_id     = "${aws_vpc.vpc-main.id}"
@@ -91,7 +100,25 @@ resource "aws_security_group" "public-sg" {
     protocol         = "icmp"
     cidr_blocks      = ["0.0.0.0/0"]
     ipv6_cidr_blocks = ["::/0"]
-  }  
+  }
+
+    ingress {
+    description      = "Allow HTTPS"
+    from_port        = 443
+    to_port          = 443
+    protocol         = "tcp"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
+
+  ingress {
+    description      = "Allow HTTP"
+    from_port        = 80
+    to_port          = 80
+    protocol         = "tcp"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
 
   egress {
     from_port        = 0
