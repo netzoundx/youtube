@@ -11,7 +11,7 @@ sleep 2
 sudo apt install -y docker.io
 sudo systemctl enable docker
 sudo groupadd docker
-newgrp docker
+sudo newgrp docker
 sleep 2
 
 # Install Gitlab Runner
