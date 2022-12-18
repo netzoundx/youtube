@@ -20,3 +20,6 @@ sleep 1
 sudo dpkg -i gitlab-runner_amd64.deb
 sleep 2
 sudo systemctl enable gitlab-runner
+
+# Install jq tool
+apt install -y jq
